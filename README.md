@@ -13,6 +13,21 @@ A simple web application that allows users to create dynamic prompt templates wi
 
 ## Usage
 
+### Running Locally
+
+To run the expander locally:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open your web browser and navigate to:
+```
+http://localhost:8000/
+```
+
+### Using the Application
+
 1. **Enter Your Template**: Paste or type your prompt template in the "Prompt Template" textarea
 2. **Use Variables**: Include variables using any of these formats:
    - `{{variable_name}}` - Double curly braces
