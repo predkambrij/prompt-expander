@@ -40,11 +40,15 @@ Hello John, welcome to GitHub! Your account balance is $150.
 
 ## Hosting on GitHub Pages
 
-1. Create a new repository on GitHub
+1. Create a new repository named `prompt-expander` on GitHub
 2. Upload these files to the repository
 3. Go to Settings → Pages
 4. Select "Deploy from a branch" and choose your main branch
-5. Your app will be available at `https://yourusername.github.io/repository-name`
+5. Your app will be available at `https://yourusername.github.io/prompt-expander`
+
+## Live Demo
+
+Visit the live application at: `https://yourusername.github.io/prompt-expander`
 
 ## Browser Support
 
