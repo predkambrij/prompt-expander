@@ -63,7 +63,7 @@ Hello John, welcome to GitHub! Your account balance is $150.
 
 ## Live Demo
 
-Visit the live application at: `https://yourusername.github.io/prompt-expander`
+Visit the live application at: https://predkambrij.github.io/prompt-expander/
 
 ## Browser Support
 
