@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Variable Expander</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Prompt Variable Expander</h1>
+            <p>Paste your prompt template and fill in the variables to generate the expanded prompt</p>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <label for="prompt-template">Prompt Template:</label>
+                <textarea 
+                    id="prompt-template" 
+                    placeholder="Enter your prompt template here. Use {{variable}}, {variable}, or $variable format for variables..."
+                    rows="8"
+                ></textarea>
+                <div class="template-info">
+                    <span id="variable-count">Variables found: 0</span>
+                </div>
+            </section>
+
+            <section class="variables-section">
+                <h3>Variables</h3>
+                <div id="variables-container">
+                    <p class="no-variables">No variables detected. Add variables to your template using {{variable}}, {variable}, or $variable format.</p>
+                </div>
+            </section>
+
+            <section class="output-section">
+                <h3>Expanded Prompt</h3>
+                <div class="output-container">
+                    <textarea 
+                        id="expanded-prompt" 
+                        readonly 
+                        placeholder="Your expanded prompt will appear here..."
+                        rows="8"
+                    ></textarea>
+                    <button id="copy-btn" class="copy-button" disabled>
+                        <span class="copy-icon">📋</span>
+                        Copy to Clipboard
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Host this on GitHub Pages for easy sharing!</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
