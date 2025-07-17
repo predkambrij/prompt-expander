@@ -72,9 +72,41 @@ Works in all modern browsers that support:
 - Async/Await
 - Clipboard API (with fallback for older browsers)
 
+## Development
+
+### Running Tests
+
+Install dependencies:
+```bash
+npm install
+```
+
+Run tests:
+```bash
+npm test
+```
+
+Run tests in watch mode (for development):
+```bash
+npm run test:watch
+```
+
+Generate coverage report:
+```bash
+npm run test:coverage
+```
+
+The test suite covers:
+- Variable detection for all supported formats (`{{}}`, `{}`, `$`)
+- Template expansion logic
+- Edge cases and error handling
+- Integration scenarios with real-world prompts
+
 ## Files
 
 - `index.html` - Main application structure
 - `style.css` - Responsive styling and design
 - `script.js` - Variable detection and dynamic form functionality
+- `test/script.test.js` - Comprehensive test suite
+- `package.json` - Node.js project configuration
 - `README.md` - This documentation

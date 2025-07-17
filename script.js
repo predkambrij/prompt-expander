@@ -179,6 +179,12 @@ class PromptVariableExpander {
     }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    new PromptVariableExpander();
-});
+if (typeof document !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', () => {
+        new PromptVariableExpander();
+    });
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = PromptVariableExpander;
+}
