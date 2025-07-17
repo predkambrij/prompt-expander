@@ -39,7 +39,13 @@
             </section>
 
             <section class="output-section">
-                <h3>Expanded Prompt</h3>
+                <div class="output-header">
+                    <h3>Expanded Prompt</h3>
+                    <button id="copy-btn" class="copy-button" disabled>
+                        <span class="copy-icon">📋</span>
+                        Copy to Clipboard
+                    </button>
+                </div>
                 <div class="output-container">
                     <textarea 
                         id="expanded-prompt" 
@@ -47,10 +53,6 @@
                         placeholder="Your expanded prompt will appear here..."
                         rows="8"
                     ></textarea>
-                    <button id="copy-btn" class="copy-button" disabled>
-                        <span class="copy-icon">📋</span>
-                        Copy to Clipboard
-                    </button>
                 </div>
             </section>
         </main>
