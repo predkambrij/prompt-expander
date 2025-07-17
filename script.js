@@ -133,14 +133,13 @@ class PromptVariableExpander {
                 <label class="variable-label" for="var-${variable}">
                     <code>${variable}</code>
                 </label>
-                <input 
-                    type="text" 
+                <textarea 
                     id="var-${variable}"
                     class="variable-input" 
                     placeholder="Enter value for ${variable}..."
-                    value="${this.variables.get(variable) || ''}"
                     data-variable="${variable}"
-                />
+                    rows="3"
+                >${this.variables.get(variable) || ''}</textarea>
             </div>
         `).join('');
         
