@@ -60,8 +60,8 @@ describe('PromptVariableExpander', () => {
         // Reset mocks
         jest.clearAllMocks();
         
-        // Create new instance for each test
-        expander = new PromptVariableExpander();
+        // Create new instance for each test, skipping DOM initialization
+        expander = new PromptVariableExpander(true);
     });
 
     describe('detectVariables', () => {
@@ -257,6 +257,7 @@ describe('PromptVariableExpander', () => {
         beforeEach(() => {
             expander.variables = new Map();
             expander.variableOrder = [];
+            expander.variablesContainer = new MockElement();
         });
 
         test('should add new variables', () => {

@@ -1,5 +1,5 @@
 class PromptVariableExpander {
-    constructor() {
+    constructor(skipInit = false) {
         this.templateTextarea = document.getElementById('prompt-template');
         this.variablesContainer = document.getElementById('variables-container');
         this.expandedTextarea = document.getElementById('expanded-prompt');
@@ -9,7 +9,9 @@ class PromptVariableExpander {
         this.variables = new Map();
         this.variableOrder = [];
         
-        this.init();
+        if (!skipInit) {
+            this.init();
+        }
     }
     
     init() {
@@ -20,35 +22,68 @@ class PromptVariableExpander {
     }
     
     detectVariables(template) {
-        const patterns = [
-            /\{\{([^}]+)\}\}/g,  // {{variable}}
-            /\{([^}]+)\}/g,      // {variable}
-            /\$([a-zA-Z_][a-zA-Z0-9_]*)/g  // $variable
-        ];
-        
         const foundVariables = new Set();
-        const variableOrder = [];
         
-        patterns.forEach(pattern => {
-            let match;
-            pattern.lastIndex = 0;
+        // Process in a single pass to avoid overlap issues
+        const allMatches = [];
+        
+        // Find all double curly brace variables first
+        const doubleCurlyPattern = /\{\{([^}]+)\}\}/g;
+        let match;
+        while ((match = doubleCurlyPattern.exec(template)) !== null) {
+            allMatches.push({
+                name: match[1].trim(),
+                position: match.index,
+                length: match[0].length,
+                fullMatch: match[0]
+            });
+        }
+        
+        // Find single curly brace variables (but exclude areas already matched by double curlies)
+        const singleCurlyPattern = /\{([^}]+)\}/g;
+        while ((match = singleCurlyPattern.exec(template)) !== null) {
+            const matchStart = match.index;
+            const matchEnd = match.index + match[0].length;
             
-            while ((match = pattern.exec(template)) !== null) {
-                const variable = match[1].trim();
-                if (variable && !foundVariables.has(variable)) {
-                    foundVariables.add(variable);
-                    variableOrder.push({
-                        name: variable,
-                        position: match.index,
-                        fullMatch: match[0]
-                    });
-                }
+            // Check if this overlaps with any double curly match
+            const overlaps = allMatches.some(existing => 
+                matchStart < existing.position + existing.length && 
+                matchEnd > existing.position
+            );
+            
+            if (!overlaps) {
+                allMatches.push({
+                    name: match[1].trim(),
+                    position: match.index,
+                    length: match[0].length,
+                    fullMatch: match[0]
+                });
             }
-        });
+        }
         
-        variableOrder.sort((a, b) => a.position - b.position);
+        // Find dollar sign variables
+        const dollarPattern = /\$([a-zA-Z_][a-zA-Z0-9_]*)/g;
+        while ((match = dollarPattern.exec(template)) !== null) {
+            allMatches.push({
+                name: match[1].trim(),
+                position: match.index,
+                length: match[0].length,
+                fullMatch: match[0]
+            });
+        }
         
-        return variableOrder.map(v => v.name);
+        // Sort by position and deduplicate
+        allMatches.sort((a, b) => a.position - b.position);
+        
+        const result = [];
+        for (const item of allMatches) {
+            if (item.name && !foundVariables.has(item.name)) {
+                foundVariables.add(item.name);
+                result.push(item.name);
+            }
+        }
+        
+        return result;
     }
     
     handleTemplateChange() {
@@ -166,7 +201,6 @@ class PromptVariableExpander {
     }
     
     showCopySuccess() {
-        const originalText = this.copyButton.textContent;
         const originalClass = this.copyButton.className;
         
         this.copyButton.classList.add('copied');
